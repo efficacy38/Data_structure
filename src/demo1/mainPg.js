@@ -3,6 +3,7 @@ import FlipMove from 'react-flip-move';
 import {MDBInput, MDBContainer, MDBBtn, MDBRow, MDBCol, MDBCard} from 'mdbreact'
 import InnerBar from './innerBar';
 import './mainPg.css';
+import {pokerToInt, intToPoker} from './poker_tool';
 
 function MainPg() {
     const [data, setdata] = useState([]); //SA,S2,S3,S4,S5,S6,S7,S8,S9,S10,SJ,SQ,SK,DA,D2,D3,D4,D5,D6,D7,D8,D9,D10,DJ,DQ,DK,CA,C2,C3,C4,C5,C6,C7,C8,C9,C10,CJ,CQ,CK,HA,H2,H3,H4,H5,H6,H7,H8,H9,H10,HJ,HQ,HK
@@ -17,49 +18,7 @@ function MainPg() {
     const [aniSpeed, setaniSpeed] = useState(0.5);
     const aniSpeedForClosure = useRef(aniSpeed);
 
-    const pokerToInt = (stringInput) =>{
-        let ret = stringInput
-        .trim()
-        .split(",")
-        .map((data) => (data.toUpperCase()))
-        .map((data) => {
-            let base;
-            console.log(data[1])
-            switch(data[1])
-            {
-                case 'A':
-                    base = 0;
-                    break;
-                case 'J':
-                    base = 40;
-                    break;
-                case 'Q':
-                    base = 44;
-                    break;
-                case 'K':
-                    base = 48;
-                    break;
-                default:
-                    base = (parseInt(data.substring(1)) - 1) * 4;
-                    break;
-            }
-            switch(data[0]){
-                case 'S':
-                    return 3 + base;
-                    break;
-                case 'H':
-                    return 2 + base;
-                    break;
-                case 'D':
-                    return 1 + base;
-                    break;
-                case 'C':
-                    return base;
-                    break;
-            }
-        });
-        return ret;
-    }
+    
 
     const addData = (e) =>{
         e.preventDefault();
@@ -98,10 +57,9 @@ function MainPg() {
                 if(log[i].type === "sw")
                 {
                     [sortingData[log[i].to], sortingData[log[i].from]] = [sortingData[log[i].from], sortingData[log[i].to]];
-                    
-                    sortingData = sortingData.slice();
 
                     dataLogForClosure.current = [...dataLogForClosure.current, sortingData];
+                    sortingData = sortingData.slice();
                     console.log('debug',dataLog, sortingData, [...dataLog, sortingData], dataLogForClosure.current)
                     setdataLog(dataLogForClosure.current);
                     setdata(sortingData);
@@ -203,10 +161,12 @@ function MainPg() {
                             <hr className = 'm-0'/>
                             {
                                 dataLog.map((data, i) =>
-                                    <MDBCard key = {i}>
-                                        {`step ${i + 1}: `}
-                                        {data.map((data) => <span key = 'data' style = {{width: "fit-content"}}>{`${data} `}</span>)}
-                                    </MDBCard>
+                                    <div key = {i} className = 'bordered'>
+                                        {`step ${i + 1}: 
+                                            ${data.map((data) => `${intToPoker(data)} `)}
+                                        `}
+                                        <hr />
+                                    </div>
                                 )
                             }
                         </MDBCard>
