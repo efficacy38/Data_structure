@@ -88,8 +88,8 @@ function MainPg() {
             <hr className = "mx-0 mt-0 w-100 font-weight-500"/>
 
                 <MDBRow className = 'm-3'>
-                    <MDBCol  className = 'col-12 col-md-8'>
-                        <MDBCard className = 'w-100 p-5 mx-3'>
+                    <MDBCol  className = 'col-12 col-md-8 my-3'>
+                        <MDBCard className = 'p-5 h-100'>
                             <FlipMove
                             staggerDelayBy={0}
                             className = "swap-items-container"
@@ -106,8 +106,8 @@ function MainPg() {
                             </FlipMove>
 
                             <hr />
-                            <MDBRow center className = 'align-items-center justify-content-start'>
-                                <MDBCol className = 'col-md-3 col-12'>
+                            <MDBRow className = 'align-items-center justify-content-center flex-grow-1'>
+                                <MDBCol className = 'col-md-4 col-12'>
                                     <form className = 'd-flex justify-content-center align-items-center'>
                                         <MDBInput
                                         className = 'd-flex'
@@ -124,8 +124,8 @@ function MainPg() {
                                         </MDBBtn>
                                     </form>
                                 </MDBCol>
-                                <MDBCol  
-                                    className = 'col-md-3 col-12'>
+                                <MDBCol
+                                    className = 'col-md-4 col-12'>
                                     <div className = 'm-3'>
                                     <label htmlFor = 'animate-speed-control' className = "font-weight-bold text-light-blue" >{`animation speed: ${aniSpeed} s`}</label>
                                         <input 
@@ -146,27 +146,26 @@ function MainPg() {
                                             />
                                     </div>
                                 </MDBCol>
-                                <MDBCol  className = 'col-md-3 col-6'>
-                                    <MDBBtn className = "bg-light-blue font-weight-bold" onClick = {insertionSort}>insertionSort</MDBBtn>
-                                </MDBCol>
-                                <MDBCol  className = 'col-md-3 col-6'>
-                                    <MDBBtn className = "bg-light-blue font-weight-bold" onClick = {display}>display</MDBBtn>
+                                <MDBCol  className = 'col-md-4 col-12 d-flex w-100'>
+                                    <MDBBtn className = "bg-light-blue font-weight-bold d-flex flex-grow-1 px-0" onClick = {insertionSort}><span className = 'mx-auto'>insertionSort</span></MDBBtn>
+                                    <MDBBtn className = "bg-light-blue font-weight-bold d-flex flex-grow-1 px-0" onClick = {display}><span className = 'mx-auto'>display</span></MDBBtn>
                                 </MDBCol>
                             </MDBRow>
                         </MDBCard>
                     </MDBCol>
-                    <MDBCol className = 'col-12 col-md-4'>
-                        <MDBCard>
-                            <h2 className = 'font-weight-bold m-3'>log</h2>
-                            <hr className = 'm-0'/>
+                    <MDBCol className = 'col-12 col-md-4  my-3'>
+                        <MDBCard className = 'overflow-auto log-container'>
+                            <MDBCard className = 'font-weight-bold p-3 m-3 bg-dark-blue-gradient text-white px-3 h3'>log</MDBCard>
                             {
                                 dataLog.map((data, i) =>
-                                    <div key = {i} className = 'bordered'>
-                                        {`step ${i + 1}: 
-                                            ${data.map((data) => `${intToPoker(data)} `)}
-                                        `}
-                                        <hr />
-                                    </div>
+                                    <MDBCard key = {i} className = 'border border-light p-3 m-3 font-weight-bold text-light-blue d-flex'>
+                                        <span className = 'd-flex aligin-self-start mr-auto'>{`step ${i + 1}:`}</span>
+                                        <span className = 'd-flex aligin-self-end text-muted ml-auto text-break'>
+                                                {
+                                                `${data.map((data) => intToPoker(data))} `
+                                                }
+                                        </span>
+                                    </MDBCard>
                                 )
                             }
                         </MDBCard>

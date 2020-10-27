@@ -32,3 +32,8 @@ body {
 button[disabled],button:disabled{
     background-color: gray !important;
 }
+
+.bg-dark-blue-gradient{
+    background: rgb(0,57,164);
+    background: linear-gradient(90deg, rgba(0,57,164,1) 0%, rgba(5,32,83,1) 87%);
+}
