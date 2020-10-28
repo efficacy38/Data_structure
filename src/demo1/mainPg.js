@@ -4,6 +4,7 @@ import {MDBInput, MDBContainer, MDBBtn, MDBRow, MDBCol, MDBCard} from 'mdbreact'
 import InnerBar from './innerBar';
 import './mainPg.css';
 import {pokerToInt, intToPoker} from './poker_tool';
+import yourNightMare from './img/Ber8i4x.jpg'
 
 function MainPg() {
     const [data, setdata] = useState([]); //SA,S2,S3,S4,S5,S6,S7,S8,S9,S10,SJ,SQ,SK,DA,D2,D3,D4,D5,D6,D7,D8,D9,D10,DJ,DQ,DK,CA,C2,C3,C4,C5,C6,C7,C8,C9,C10,CJ,CQ,CK,HA,H2,H3,H4,H5,H6,H7,H8,H9,H10,HJ,HQ,HK
@@ -58,15 +59,15 @@ function MainPg() {
                 {
                     [sortingData[log[i].to], sortingData[log[i].from]] = [sortingData[log[i].from], sortingData[log[i].to]];
 
-                    dataLogForClosure.current = [...dataLogForClosure.current, sortingData];
                     sortingData = sortingData.slice();
-                    console.log('debug',dataLog, sortingData, [...dataLog, sortingData], dataLogForClosure.current)
-                    setdataLog(dataLogForClosure.current);
+                    // console.log('debug',dataLog, sortingData, [...dataLog, sortingData], dataLogForClosure.current)
                     setdata(sortingData);
                 }else if(log[i].type === "beg"){
                     setcurPick(sortingData[log[i].from]);
                 }else{      //type == ins
                     setcurPick(null);
+                    dataLogForClosure.current = [...dataLogForClosure.current, sortingData];
+                    setdataLog(dataLogForClosure.current);
                 }
                 i++;
                 console.log("done", i);
@@ -82,8 +83,8 @@ function MainPg() {
 
     return (
         <div>
-            <MDBContainer className = 'bg-light-blue text-white m-0 pl-3 pt-3 pb-0 mw-100'>
-                <h1 className = 'font-weight-bold mb-0'>Insertion Sort</h1>
+            <MDBContainer className = 'm-0 pl-3 pt-3 pb-0 mw-100 text-center'>
+                <h1 className = 'font-weight-bold text-dark-blue'>Insertion Sort</h1>
             </MDBContainer>
             <hr className = "mx-0 mt-0 w-100 font-weight-500"/>
 
@@ -92,7 +93,7 @@ function MainPg() {
                         <MDBCard className = 'p-5 h-100'>
                             <FlipMove
                             staggerDelayBy={0}
-                            className = "swap-items-container"
+                            className = "swap-items-container  overflow-auto"
                             duration = {(aniSpeed - 0.1) * 1000}
                             >
                             {data.map((data) => (
@@ -153,12 +154,13 @@ function MainPg() {
                             </MDBRow>
                         </MDBCard>
                     </MDBCol>
+                    
                     <MDBCol className = 'col-12 col-md-4  my-3'>
                         <MDBCard className = 'overflow-auto log-container'>
                             <MDBCard className = 'font-weight-bold p-3 m-3 bg-dark-blue-gradient text-white px-3 h3'>log</MDBCard>
                             {
                                 dataLog.map((data, i) =>
-                                    <MDBCard key = {i} className = 'border border-light p-3 m-3 font-weight-bold text-light-blue d-flex'>
+                                    <MDBCard key = {i} className = 'border border-light px-3 py-2 mx-3 my-1 font-weight-bold text-light-blue d-flex'>
                                         <span className = 'd-flex aligin-self-start mr-auto'>{`step ${i + 1}:`}</span>
                                         <span className = 'd-flex aligin-self-end text-muted ml-auto text-break'>
                                                 {
@@ -168,6 +170,9 @@ function MainPg() {
                                     </MDBCard>
                                 )
                             }
+                        </MDBCard>
+                        <MDBCard className = 'img-container mt-3'>
+                            <img src = {yourNightMare} style = {{padding: "1rem", height: "100%"}}/>
                         </MDBCard>
                     </MDBCol>
                 </MDBRow>
