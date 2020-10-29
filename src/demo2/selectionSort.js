@@ -2,11 +2,11 @@ import React, {useState, useRef} from 'react'
 import FlipMove from 'react-flip-move';
 import {MDBInput, MDBBtn, MDBRow, MDBCol, MDBCard} from 'mdbreact'
 import InnerBar from './innerBar';
-import './mainPg.css';
-import {pokerToInt, intToPoker} from './poker_tool';
-import yourNightMare from './img/Ber8i4x.jpg'
+import './../demo1/mainPg.css';
+import {pokerToInt, intToPoker} from './../demo1/poker_tool';
+import yourNightMare from './../demo1/img/Ber8i4x.jpg'
 
-function MainPg() {
+function SelectionSort() {
     const [data, setdata] = useState([]); //SA,S2,S3,S4,S5,S6,S7,S8,S9,S10,SJ,SQ,SK,DA,D2,D3,D4,D5,D6,D7,D8,D9,D10,DJ,DQ,DK,CA,C2,C3,C4,C5,C6,C7,C8,C9,C10,CJ,CQ,CK,HA,H2,H3,H4,H5,H6,H7,H8,H9,H10,HJ,HQ,HK
     const [input, setinput] = useState();
     const [log, setlog] = useState([]);
@@ -34,17 +34,14 @@ function MainPg() {
         setlog([]);
         let tmplog = [];
         let sortingData = data.slice(0, data.length);
-        for(let i = 1, j = 0; i < sortingData.length; i++)
+        for(let i = 1, j = 0, maxi; i < sortingData.length; i++)
         {
-            let tmp = sortingData[i];
-            tmplog.push({"from": i, "type": "beg"});
-            for(j = i - 1; j >= 0 && (sortingData[j] < tmp); j--)
+            maxi = i;
+            for(j = i + 1; j < sortingData.length; j++)
             {
-                sortingData[j + 1] = sortingData[j];
-                tmplog.push({"from": j, "to": j + 1, "type": "sw"});
+                if(sortingData[maxi] < sortingData[j])  maxi = j;
             }
-            sortingData[j + 1] = tmp;
-            tmplog.push({"num": tmp, "to":j + 1, "type": "ins"});
+            if(maxi !== i)       tmplog.push((i, j));
         }
         setlog(tmplog);
     }
@@ -55,27 +52,18 @@ function MainPg() {
         let i = 0;
         const displayChange = () => {
             if(i < log.length){
-                if(log[i].type === "sw")
-                {
-                    [sortingData[log[i].to], sortingData[log[i].from]] = [sortingData[log[i].from], sortingData[log[i].to]];
-
-                    sortingData = sortingData.slice();
-                    // console.log('debug',dataLog, sortingData, [...dataLog, sortingData], dataLogForClosure.current)
-                    setdata(sortingData);
-                }else if(log[i].type === "beg"){
-                    setcurPick(sortingData[log[i].from]);
-                }else{      //type == ins
-                    setcurPick(null);
-                    dataLogForClosure.current = [...dataLogForClosure.current, sortingData];
-                    setdataLog(dataLogForClosure.current);
-                }
+                setTimeout(() => {
+                    setcurPick(log[i]);
+                }, (aniSpeedForClosure - 0.1) / 2 * 1000);
+                
+                [sortingData[log[i].fst], sortingData[log[i].snd]]= [sortingData[log[i].snd], sortingData[log[i].fst]]
                 i++;
                 console.log("done", i);
 
                 setTimeout(() => {
                     displayChange();
                     console.log("aniSpeed", aniSpeedForClosure);
-                }, aniSpeedForClosure.current * 1000);
+                }, (aniSpeedForClosure - 0.1) / 2 * 1000);
             }
         }
         displayChange();
@@ -84,7 +72,7 @@ function MainPg() {
     return (
         <div>
 
-            <h1 className = 'px-4 py-2 font-weight-bold mb-0 bg-light-gray'>Insertion Sort</h1>
+            <h1 className = 'px-4 py-2 font-weight-bold mb-0 bg-light-gray'>Selection Sort</h1>
                 <MDBRow className = 'm-3'>
                     <MDBCol  className = 'col-12 col-md-8 my-3'>
                         <MDBCard className = 'p-3 h-100'>
@@ -177,4 +165,4 @@ function MainPg() {
     )
 }
 
-export default MainPg
+export default SelectionSort;

@@ -4,47 +4,52 @@ const pokerToInt = (stringInput) =>{
     .split(",")
     .map((data) => (data.toUpperCase()))
     .map((data) => {
-        let base;
+        let base = 0;
         console.log(data[1])
+
+        switch(data[0]){
+            case 'S':
+                base += 39;
+                break;
+            case 'H':
+                base += 26;
+                break;
+            case 'D':
+                 base += 13;
+                break;
+            case 'C':
+            default:
+                console.log('it seems has some bug.')
+                break;
+        }
+
         switch(data[1])
         {
             case 'J':
-                base = 36;
+                base += 9;
                 break;
             case 'Q':
-                base = 40;
+                base += 10;
                 break;
             case 'K':
-                base = 44;
+                base += 11;
                 break;
             case 'A':
-                base = 48;
+                base += 12;
                 break;
             default:
-                base = (parseInt(data.substring(1)) - 2) * 4;
+                base += (parseInt(data.substring(1)) - 2);
                 break;
         }
-        switch(data[0]){
-            case 'S':
-                return 3 + base;
-                break;
-            case 'H':
-                return 2 + base;
-                break;
-            case 'D':
-                return 1 + base;
-                break;
-            case 'C':
-                return base;
-                break;
-        }
+
+        return base;
     });
     return ret;
 }
 
 const intToPoker = (pokerNum) => {
     let poker = "";
-    switch(pokerNum % 4)
+    switch(Math.floor(pokerNum / 13))
     {
         case 0:
             poker = 'C';
@@ -58,9 +63,11 @@ const intToPoker = (pokerNum) => {
         case 3:
             poker = 'S';
             break;
+        default:
+            break;
     }
     
-    switch(Math.floor(pokerNum / 4))
+    switch(pokerNum % 13)
     {
         case 9:
             poker += 'J';
@@ -75,7 +82,7 @@ const intToPoker = (pokerNum) => {
             poker += 'A';
             break;
         default:
-            poker += (Math.floor(pokerNum / 4) + 2).toString();
+            poker += (Math.floor(pokerNum % 13) + 2).toString();
         break;
     }
     return poker;
