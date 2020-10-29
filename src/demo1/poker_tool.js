@@ -8,20 +8,20 @@ const pokerToInt = (stringInput) =>{
         console.log(data[1])
         switch(data[1])
         {
-            case 'A':
-                base = 0;
-                break;
             case 'J':
-                base = 40;
+                base = 36;
                 break;
             case 'Q':
-                base = 44;
+                base = 40;
                 break;
             case 'K':
+                base = 44;
+                break;
+            case 'A':
                 base = 48;
                 break;
             default:
-                base = (parseInt(data.substring(1)) - 1) * 4;
+                base = (parseInt(data.substring(1)) - 2) * 4;
                 break;
         }
         switch(data[0]){
@@ -62,20 +62,20 @@ const intToPoker = (pokerNum) => {
     
     switch(Math.floor(pokerNum / 4))
     {
-        case 0:
-            poker += 'A';
-            break;
-        case 10:
+        case 9:
             poker += 'J';
             break;
-        case 11:
+        case 10:
             poker += 'Q';
             break;
-        case 12:
+        case 11:
             poker += 'K';
             break;
+        case 12:
+            poker += 'A';
+            break;
         default:
-            poker += (Math.floor(pokerNum / 4) + 1).toString();
+            poker += (Math.floor(pokerNum / 4) + 2).toString();
         break;
     }
     return poker;

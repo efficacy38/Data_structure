@@ -9,7 +9,9 @@
 }
 
 .log-container{
-    min-height: min(500px, 50vh);
-    height: fit-content;
-    max-height: 80vh;
+    height: min(500px, 50vh);
+}
+
+.img-container{
+    height: calc(80vh - min(500px, 50vh));
 }
