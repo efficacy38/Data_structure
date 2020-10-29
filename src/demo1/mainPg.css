@@ -1,7 +1,15 @@
 .swap-items-container{
     min-height: min(500px, 50vh);
+    max-height: 80vh;
+    height: fit-content;
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: center;
+}
+
+.log-container{
+    min-height: min(500px, 50vh);
+    height: fit-content;
+    max-height: 80vh;
 }

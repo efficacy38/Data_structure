@@ -17,21 +17,21 @@ const Nav = () =>{
   };
   return(
     <Router>
-    <MDBNavbar className = "bg-white navbar-light" expand="md">
+    <MDBNavbar className = "bg-dark-blue navbar-light" expand="md">
       <MDBNavbarBrand>
-        <p className="black-text m-0 font-weight-bold">data structure demo</p>
+        <p className="white-text m-0 font-weight-bold">data structure demo</p>
       </MDBNavbarBrand>
       <MDBNavbarToggler onClick={toggleCollapse} />
       <MDBCollapse id="navbarCollapse3" isOpen={isOpen} navbar>
-        <MDBNavbarNav left  className = "black-text">
+        <MDBNavbarNav left  className = "white-text">
           <MDBNavItem active = {false}>
-            <MDBNavLink exact to="/" className="text-dark-blue font-weight-bold">Home</MDBNavLink>
+            <MDBNavLink exact to="/" className="white-text font-weight-bolder">Home</MDBNavLink>
           </MDBNavItem>
           <MDBNavItem>
-            <MDBNavLink to="/Article/12" className="text-dark-blue font-weight-bold">Article</MDBNavLink>
+            <MDBNavLink to="/Article/12" className="white-text font-weight-bolder">Article</MDBNavLink>
           </MDBNavItem>
           <MDBNavItem>
-            <MDBNavLink to="/InsertionSort" className="text-dark-blue font-weight-bold">selectionSort</MDBNavLink>
+            <MDBNavLink to="/InsertionSort" className="white-text font-weight-bolder">selectionSort</MDBNavLink>
           </MDBNavItem>
         </MDBNavbarNav>
       </MDBCollapse>

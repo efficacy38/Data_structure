@@ -5,7 +5,7 @@ body {
   'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue','Noto Sans TC', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #E0E0E0;
+
 }
 
 :root{
@@ -29,6 +29,15 @@ body {
     background-color: var(--light-blue) !important;
 }
 
+.bg-light-gray{
+    background-color: #E0E0E0;
+}
+
 button[disabled],button:disabled{
     background-color: gray !important;
+}
+
+.bg-dark-blue-gradient{
+    background: rgb(0,57,164);
+    background: linear-gradient(90deg, rgba(0,57,164,1) 0%, rgba(5,32,83,1) 87%);
 }
