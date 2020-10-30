@@ -21,3 +21,7 @@
 .swap-item.pick .bar{
     background-color: #ff4444;
 }
+
+.swap-item.success .bar{
+    background-color: #73b369;
+}

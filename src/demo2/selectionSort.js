@@ -10,7 +10,7 @@ function SelectionSort() {
     const [data, setdata] = useState([]); //SA,S2,S3,S4,S5,S6,S7,S8,S9,S10,SJ,SQ,SK,DA,D2,D3,D4,D5,D6,D7,D8,D9,D10,DJ,DQ,DK,CA,C2,C3,C4,C5,C6,C7,C8,C9,C10,CJ,CQ,CK,HA,H2,H3,H4,H5,H6,H7,H8,H9,H10,HJ,HQ,HK
     const [input, setinput] = useState();
     const [log, setlog] = useState([]);
-    const [curPick, setcurPick] = useState(null);
+    const [curPick, setcurPick] = useState([]);
 
     const [dataLog, setdataLog] = useState([]);
     const dataLogForClosure = useRef([...dataLog]);
@@ -34,14 +34,20 @@ function SelectionSort() {
         setlog([]);
         let tmplog = [];
         let sortingData = data.slice(0, data.length);
-        for(let i = 1, j = 0, maxi; i < sortingData.length; i++)
+        for(let i = 0, j = 0, maxi; i < sortingData.length; i++)
         {
             maxi = i;
-            for(j = i + 1; j < sortingData.length; j++)
+            for(j = i; j < sortingData.length; j++)
             {
                 if(sortingData[maxi] < sortingData[j])  maxi = j;
             }
-            if(maxi !== i)       tmplog.push((i, j));
+
+            if(maxi !== i)
+            {
+                [sortingData[i], sortingData[maxi]] = [sortingData[maxi], sortingData[i]];
+                console.log([i, maxi]);
+                tmplog.push([i, maxi]);
+            }
         }
         setlog(tmplog);
     }
@@ -52,18 +58,30 @@ function SelectionSort() {
         let i = 0;
         const displayChange = () => {
             if(i < log.length){
-                setTimeout(() => {
-                    setcurPick(log[i]);
-                }, (aniSpeedForClosure - 0.1) / 2 * 1000);
-                
-                [sortingData[log[i].fst], sortingData[log[i].snd]]= [sortingData[log[i].snd], sortingData[log[i].fst]]
-                i++;
-                console.log("done", i);
+                setcurPick([]);
 
                 setTimeout(() => {
+                    setcurPick([sortingData[log[i][0]], sortingData[log[i][1]]]);
+                    console.log('pick', [sortingData[log[i][0]], sortingData[log[i][1]]]);
+                }, 110);
+
+                setTimeout(() => {
+                    sortingData = sortingData.slice(0, sortingData.length);
+                    [sortingData[log[i][0]], sortingData[log[i][1]]] = [sortingData[log[i][1]], sortingData[log[i][0]]];
+                    dataLogForClosure.current = [...dataLogForClosure.current, sortingData];
+                    setdataLog(dataLogForClosure.current);
+                    // console.log("done", log, i);
+                    i++;
+                    setdata(sortingData);
+                }, ((aniSpeedForClosure.current - 0.2) / 2 + 0.11) * 1000);                 //add 110ms for disabing the active pick bar
+
+                setTimeout(() => {
+                    // console.log("aniSpeed", aniSpeedForClosure.current);
                     displayChange();
-                    console.log("aniSpeed", aniSpeedForClosure);
-                }, (aniSpeedForClosure - 0.1) / 2 * 1000);
+                }, aniSpeedForClosure.current * 1000);
+            }else
+            {
+                setcurPick([]);
             }
         }
         displayChange();
@@ -79,7 +97,7 @@ function SelectionSort() {
                             <FlipMove
                             staggerDelayBy={0}
                             className = "swap-items-container overflow-auto flex-fill"
-                            duration = {(aniSpeed - 0.1) * 1000}
+                            duration = {(aniSpeed - 0.2) / 2 * 1000}
                             >
                             {data.map((data) => (
                                     <InnerBar
@@ -122,7 +140,7 @@ function SelectionSort() {
                                             id = 'animate-speed-control'
                                             value = {aniSpeed}
                                             step={0.01}
-                                            min = {0.1}
+                                            min = {0.3}
                                             max = {1}
                                             onChange = {
                                                 () => {

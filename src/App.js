@@ -8,6 +8,7 @@ import 'mdbreact/dist/css/mdb.css';
 import HomePage from './HomePage';
 import InsertionSort from './demo1/mainPg';
 import SelectionSort from './demo2/selectionSort';
+import CountingSort from './demo4/countingSort';
 import './App.css';
 
 const Nav = () =>{
@@ -44,6 +45,7 @@ const Nav = () =>{
       <Route exact path='/' children={HomePage}></Route>
       <Route path='/InsertionSort' component={InsertionSort}></Route>
       <Route path='/SelectionSort' component={SelectionSort}></Route>
+      <Route path='/CountingSort' component={CountingSort}></Route>
       {/* <Route path={`${'/Article'}/:id`} component = {Article} /> */}
     </Switch>
   </Router>

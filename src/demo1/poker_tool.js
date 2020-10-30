@@ -18,6 +18,7 @@ const pokerToInt = (stringInput) =>{
                  base += 13;
                 break;
             case 'C':
+                break;
             default:
                 console.log('it seems has some bug.')
                 break;
