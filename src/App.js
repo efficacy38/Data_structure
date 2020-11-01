@@ -9,6 +9,8 @@ import HomePage from './HomePage';
 import InsertionSort from './demo1/mainPg';
 import SelectionSort from './demo2/selectionSort';
 import CountingSort from './demo4/countingSort';
+import BubbleSort from './demo3/BubbleSort';
+import ShellSort from './demo5/ShellSort';
 import './App.css';
 
 const Nav = () =>{
@@ -37,6 +39,15 @@ const Nav = () =>{
           <MDBNavItem>
             <MDBNavLink to="/SelectionSort" className="white-text font-weight-bolder">SelectionSort</MDBNavLink>
           </MDBNavItem>
+          <MDBNavItem>
+            <MDBNavLink to="/CountingSort" className="white-text font-weight-bolder">CountingSort</MDBNavLink>
+          </MDBNavItem>
+          <MDBNavItem>
+            <MDBNavLink to="/BubbleSort" className="white-text font-weight-bolder">BubbleSort</MDBNavLink>
+          </MDBNavItem>
+          <MDBNavItem>
+            <MDBNavLink to="/ShellSort" className="white-text font-weight-bolder">ShellSort</MDBNavLink>
+          </MDBNavItem>
         </MDBNavbarNav>
       </MDBCollapse>
     </MDBNavbar>
@@ -46,6 +57,8 @@ const Nav = () =>{
       <Route path='/InsertionSort' component={InsertionSort}></Route>
       <Route path='/SelectionSort' component={SelectionSort}></Route>
       <Route path='/CountingSort' component={CountingSort}></Route>
+      <Route path='/BubbleSort' component={BubbleSort}></Route>
+      <Route path='/ShellSort' component={ShellSort}></Route>
       {/* <Route path={`${'/Article'}/:id`} component = {Article} /> */}
     </Switch>
   </Router>

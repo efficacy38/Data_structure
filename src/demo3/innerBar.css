@@ -1,0 +1,27 @@
+.swap-item{
+    margin-top: calc(64px + 2rem);
+    position: relative;
+    top: 0;
+    flex: 0;
+    width: auto;
+    min-height: max-content;
+
+    align-self: flex-end;
+    transition: top 0.1s ease-in-out;
+}
+
+.swap-item.swap-item.pick{
+    top: calc(-64px - 2rem);
+}
+
+.swap-item .bar{
+    background-color: #4285F4;
+}
+
+.swap-item.pick .bar{
+    background-color: #ff4444;
+}
+
+.swap-item.pick1 .bar{
+    background-color: #ff4444;
+}
