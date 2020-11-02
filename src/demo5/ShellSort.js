@@ -140,7 +140,7 @@ function CountingSort() {
                   return ele.slice(1)
                 return ele
               }).map((ele) =>{
-                if(ele[0] == '"')                           //過濾公司全名有'"'(雙引號)
+                if(ele[0] === '"')                           //過濾公司全名有'"'(雙引號)
                   return ele.substring(1, ele.length - 1);
                 return ele
               })
@@ -183,13 +183,27 @@ function CountingSort() {
   }, [output])
 
   const sort = () =>{
-      let nextRows = Array(rows.length);
-      let statusCount = new Array(600);
-      statusCount = statusCount.fill(0, 0, 600);
-      console.log(statusCount);
-
-      setrows(nextRows);
-                
+      let rowscpy = [...rows];
+      let gap = Math.floor(rowscpy.length / 2);
+      while(gap > 0)
+      {
+        for(let i = gap, j; i < rowscpy.length; i++)
+        {
+          j = i;
+          // let tmp = rowscpy[j];
+          while(j >= gap && rowscpy[j].EBITDA.props.children > rowscpy[j - gap].EBITDA.props.children)
+          {
+            console.log(j);
+              // rowscpy[j] = rowscpy[j - gap];
+              [rowscpy[j],rowscpy[j - gap]] = [rowscpy[j - gap],rowscpy[j]]
+              j -= gap;
+          }
+          // rowscpy[j] = tmp;
+          console.log([...rowscpy].map((ele, idx) => ele.EBITDA.props.children), i, j, gap)
+        }
+        gap = Math.floor(gap / 2);
+      }
+      setrows(rowscpy);               
     }
 
     return (
