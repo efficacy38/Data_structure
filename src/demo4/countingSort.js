@@ -99,7 +99,11 @@ function CountingSort() {
             .map((line, idx) => {
                 let splitArr = 
                 line.match(regex)
-                .map((ele) => (ele.trim()));
+                .map((ele) => (ele.trim()))
+                .map((ele) =>{
+                  if(ele[0] === '"')  return ele.substring(1, ele.length - 1);
+                  return ele;
+                });
 
                 let buf = {
                     "index": idx,
