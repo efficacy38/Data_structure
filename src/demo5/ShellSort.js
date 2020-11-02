@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState} from 'react';
 import {MDBContainer, MDBRow, MDBCol, MDBDataTableV5, MDBBtn } from 'mdbreact';
 import FileInput from './FileInput';
 
@@ -120,7 +120,7 @@ function CountingSort() {
         {
             setoutput(files[selectNum].file);
         }
-    }, [selectNum]);
+    }, [selectNum,files]);
 
     useEffect(() => {
         const regex = /(?:,|\n|^)("(?:(?:"")*[^"]*)*"|[^",\n]*|(?:\n|$))/g;
@@ -190,15 +190,15 @@ function CountingSort() {
         for(let i = gap, j; i < rowscpy.length; i++)
         {
           j = i;
-          // let tmp = rowscpy[j];
-          while(j >= gap && rowscpy[j].EBITDA.props.children > rowscpy[j - gap].EBITDA.props.children)
+          let tmp = {...rowscpy[j]};
+          while(j >= gap && tmp.EBITDA.props.children > rowscpy[j - gap].EBITDA.props.children)
           {
             console.log(j);
-              // rowscpy[j] = rowscpy[j - gap];
-              [rowscpy[j],rowscpy[j - gap]] = [rowscpy[j - gap],rowscpy[j]]
+              rowscpy[j] = {...rowscpy[j - gap]};
+              // [rowscpy[j],rowscpy[j - gap]] = [rowscpy[j - gap],rowscpy[j]]
               j -= gap;
           }
-          // rowscpy[j] = tmp;
+          rowscpy[j] = {...tmp};
           console.log([...rowscpy].map((ele, idx) => ele.EBITDA.props.children), i, j, gap)
         }
         gap = Math.floor(gap / 2);

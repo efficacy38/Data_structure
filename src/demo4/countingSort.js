@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from 'react';
+import React, {useEffect, useState} from 'react';
 import {MDBContainer, MDBRow, MDBCol, MDBDataTableV5, MDBBtn } from 'mdbreact';
 import FileInput from './FileInput';
 
@@ -92,7 +92,7 @@ function CountingSort() {
         }
         console.log(lines);
         setrows(lines);
-    }, [output])
+    }, [output, files])
 
     const sort = () =>{
         let nextRows = Array(rows.length);

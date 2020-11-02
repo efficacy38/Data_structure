@@ -1,4 +1,4 @@
-import React, {forwardRef, useEffect, useState} from 'react'
+import React, {forwardRef} from 'react'
 import './innerBar.css';
 
 const InnerBar = React.memo(forwardRef(({data, curPick}, ref) => {   
