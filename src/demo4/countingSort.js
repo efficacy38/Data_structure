@@ -15,34 +15,69 @@ function CountingSort() {
             "attributes" : {
               'aria-controls': 'DataTable',
               'aria-label': 'index',
-            }
+            },
           },{
-            label: 'ip',
-            field: 'ip',
+            label: 'Remote IP',
+            field: 'RI',
             "attributes" : {
               'aria-controls': 'DataTable',
-              'aria-label': 'ip',
+              'aria-label': 'Remote IP',
             }
           },{
-            label: 'method',
-            field: 'method',
+            label: 'Remote Group',
+            field: 'RG',
             "attributes" : {
               'aria-controls': 'DataTable',
-              'aria-label': 'method',
+              'aria-label': 'Remote Group',
             }
           },{
-            label: 'status',
+            label: 'Remote User',
+            field: 'RU',
+            "attributes" : {
+              'aria-controls': 'DataTable',
+              'aria-label': 'RU',
+            }
+          },{
+            label: 'datetime',
+            field: 'datetime',
+            "attributes" : {
+              'aria-controls': 'DataTable',
+              'aria-label': 'datetime',
+            }
+          },{
+            label: 'HTTP method',
+            field: 'HM',
+            "attributes" : {
+              'aria-controls': 'DataTable',
+              'aria-label': 'HM',
+            }
+          },{
+            label: 'HTTP STATUS CODE',
             field: 'status',
             "attributes" : {
               'aria-controls': 'DataTable',
               'aria-label': 'status',
             }
           },{
-            label: 'output',
-            field: 'output',
+            label: 'Response Length (Bytes)',
+            field: 'RL',
             "attributes" : {
               'aria-controls': 'DataTable',
-              'aria-label': 'output',
+              'aria-label': 'RL',
+            }
+          },{
+            label: 'HTTP Referer',
+            field: 'HR',
+            "attributes" : {
+              'aria-controls': 'DataTable',
+              'aria-label': 'HTTP Referer',
+            }
+          },{
+            label: 'HTTP X-Forwarded-For',
+            field: 'HX',
+            "attributes" : {
+              'aria-controls': 'DataTable',
+              'aria-label': 'HTTP X-Forwarded-For',
             }
           }
 
@@ -56,18 +91,27 @@ function CountingSort() {
     }, [selectNum]);
 
     useEffect(() => {
+        const regex = /(?: |^)("(?:(?:"")*[^"]*)*"|\[(?:[^\]]*)*\]|[^" \n]*)/g;
         let lines;
         if(output)
         {
-            lines = files[selectNum].file.split('\n')
+            lines = output.split('\n')
             .map((line, idx) => {
-                let splitArr = line.split(' ');
+                let splitArr = 
+                line.match(regex)
+                .map((ele) => (ele.trim()));
+
                 let buf = {
                     "index": idx,
-                    "ip": splitArr[0],
-                    "method": splitArr[5].substring(1),
-                    "status": parseInt(splitArr[8]),
-                    "output": line,
+                    "RI": splitArr[0],
+                    "RG": splitArr[1],
+                    "RU": splitArr[2],
+                    "datetime": splitArr[3],
+                    "HM": splitArr[4],
+                    "status": splitArr[5],
+                    "RL": splitArr[6],
+                    "HR": splitArr[7],
+                    "HX": splitArr[8],
                 };
 
                 if(buf.status >= 100 && buf.status < 200)
@@ -89,20 +133,20 @@ function CountingSort() {
                 }
                 return buf;
             });
+            // console.log(lines[17610], lines[17611]);
         }
-        console.log(lines);
         setrows(lines);
-    }, [output, files])
+    }, [output])
 
     const sort = () =>{
         let nextRows = Array(rows.length);
-        let statusCount = new Array(600);
-        statusCount = statusCount.fill(0, 0, 600);
-
+        let statusCount = new Array(601);
+        statusCount = statusCount.fill(0, 0, 601);
+        statusCount[0] = -1;
         for(let i = 0; i < rows.length; i++)
         {
             statusCount[rows[i].status.props.children]++;
-            console.log(rows[i].status.props.children, statusCount[rows[i].status.props.children])
+            // console.log(rows[i].status.props.children, statusCount[rows[i].status.props.children], i)
         }
 
         for(let i = 1; i < 600; i++)
@@ -114,8 +158,8 @@ function CountingSort() {
         {
             nextRows[statusCount[rows[i].status.props.children]--] = rows[i];        //we change status while load file
         }
-        // console.log(nextRows);
         setrows(nextRows);
+        console.log('sort done')
     }
 
     return (
@@ -151,6 +195,8 @@ function CountingSort() {
                         rows : rows
                      }
                  }
+                 responsive
+                 materialSearch
                 />
             </MDBContainer>
         </>

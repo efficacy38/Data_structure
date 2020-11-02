@@ -1,6 +1,18 @@
 import React, {useState} from 'react';
 import logo from './logo.svg';
-import {MDBNavbar, MDBNavbarBrand, MDBNavbarNav, MDBNavItem, MDBNavLink, MDBNavbarToggler, MDBCollapse} from "mdbreact";
+import {
+  MDBNavbar,
+  MDBNavbarBrand,
+  MDBNavbarNav,
+  MDBNavItem,
+  MDBNavLink,
+  MDBNavbarToggler,
+  MDBCollapse,
+  MDBFooter,
+  MDBContainer,
+  MDBRow,
+  MDBCol,
+      } from "mdbreact";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import '@fortawesome/fontawesome-free/css/all.min.css'; 
 import 'bootstrap-css-only/css/bootstrap.min.css'; 
@@ -65,11 +77,36 @@ const Nav = () =>{
   );
 }
 
+const Footer = () =>{
+  return(
+    <MDBFooter className="font-small pt-4 mt-4 bg-dark-blue">
+    <MDBContainer fluid className="text-center text-md-left">
+      <MDBRow>
+        <MDBCol md="6">
+          <h5 className="title">demo~</h5>
+          <p>
+            react data structure demo
+          </p>
+        </MDBCol>
+      </MDBRow>
+    </MDBContainer>
+    <div className="footer-copyright text-center py-3">
+      <MDBContainer fluid>
+        &copy; {new Date().getFullYear()} Copyright: efficacy38
+      </MDBContainer>
+    </div>
+  </MDBFooter>
+  )
+}
+
 function App() {
   return (
-    <div className="App">
-      <Nav />
-    </div>
+    <>
+      <div className="App" style = {{minHeight: "100vh"}}>
+        <Nav />
+      </div>
+      <Footer />
+    </>
   );
 }
 
