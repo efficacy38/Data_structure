@@ -111,7 +111,7 @@ function MainPg() {
                                         <MDBInput
                                         className = 'd-flex'
                                         value = {input}
-                                        onChange = {(e) =>{ setinput(e.target.value);}}
+                                        onChange = {(e) =>{setinput(e.target.value);}}
                                         label = "輸入撲克牌"
                                         />
                                         <MDBBtn

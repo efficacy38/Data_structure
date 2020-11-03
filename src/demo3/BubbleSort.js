@@ -99,7 +99,6 @@ function SelectionSort() {
                                     key = {data}
                                     data = {data}
                                     curPick = {curPick}>
-                                        {data}
                                     </InnerBar>
                                 ))}
                             </FlipMove>

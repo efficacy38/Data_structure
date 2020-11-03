@@ -6,10 +6,13 @@ const InnerBar = React.memo(forwardRef(({data, curPick}, ref) => {
     return (
         <div className = {`swap-item mx-1 ${(curPick[0] === data) ? 'pick' : ' '} ${(curPick[1] === data) ? 'pick' : ''}`}
             ref = {ref} key = {data}>
-            <div className = 'font-weight-bold'>{`${data}`}</div>
-            <div className = "bar"
-                style = {{height: `${data}px`, width: `${data}px`, borderRadius: '50%'}}>
-                </div>
+
+            <div className = "bar d-flex align-items-center justify-content-center"
+                style = {{height: `${data * 10}px`, width: `${data * 10}px`, borderRadius: '50%'}}>
+                    <span className = 'font-weight-bold d-flex text-white' >
+                        {`${data}`}
+                    </span>
+            </div>
         </div>
     )
     
