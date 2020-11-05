@@ -19,14 +19,14 @@ function SelectionSort() {
     const [aniSpeed, setaniSpeed] = useState(0.5);
     const aniSpeedForClosure = useRef(aniSpeed);
 
-    
+    let id = useRef(0);
 
     const addData = (e) =>{
         e.preventDefault();
-        let inputdata = [...data, ...pokerToInt(input)];
+        let inputdata = [...data, ...pokerToInt(input, id)];
         setdata(inputdata);
-        setdataLog([inputdata]);
-        dataLogForClosure.current = [inputdata];
+        setdataLog([inputdata.map(ele => ele.data)]);
+        dataLogForClosure.current = [inputdata.map(ele => ele.data)];
         setinput('');
     }
 
@@ -39,14 +39,14 @@ function SelectionSort() {
             maxi = i;
             for(j = i; j < sortingData.length; j++)
             {
-                if(sortingData[maxi] < sortingData[j])  maxi = j;
+                if(sortingData[maxi].data < sortingData[j].data)  maxi = j;
             }
 
             if(maxi !== i)
             {
                 [sortingData[i], sortingData[maxi]] = [sortingData[maxi], sortingData[i]];
-                console.log([i, maxi]);
-                tmplog.push([i, maxi]);
+                console.log([i, maxi, sortingData[i].id,  sortingData[maxi].id]);
+                tmplog.push([i, maxi, sortingData[i].id,  sortingData[maxi].id]);
             }
         }
         setlog(tmplog);
@@ -61,14 +61,14 @@ function SelectionSort() {
                 setcurPick([]);
 
                 setTimeout(() => {
-                    setcurPick([sortingData[log[i][0]], sortingData[log[i][1]]]);
-                    console.log('pick', [sortingData[log[i][0]], sortingData[log[i][1]]]);
+                    setcurPick([log[i][2],log[i][3]]);
+                    console.log('pick', [sortingData[log[i][2]], sortingData[log[i][3]]]);
                 }, 110);
 
                 setTimeout(() => {
                     sortingData = sortingData.slice(0, sortingData.length);
                     [sortingData[log[i][0]], sortingData[log[i][1]]] = [sortingData[log[i][1]], sortingData[log[i][0]]];
-                    dataLogForClosure.current = [...dataLogForClosure.current, sortingData];
+                    dataLogForClosure.current = [...dataLogForClosure.current, sortingData.map(ele => ele.data)];
                     setdataLog(dataLogForClosure.current);
                     // console.log("done", log, i);
                     i++;
@@ -101,7 +101,7 @@ function SelectionSort() {
                             >
                             {data.map((data) => (
                                     <InnerBar
-                                    key = {data}
+                                    key = {data.id}
                                     data = {data}
                                     curPick = {curPick}>
                                         {data}

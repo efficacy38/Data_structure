@@ -19,14 +19,14 @@ function MainPg() {
     const [aniSpeed, setaniSpeed] = useState(0.5);
     const aniSpeedForClosure = useRef(aniSpeed);
 
-    
+    let id = useRef(0);
 
     const addData = (e) =>{
         e.preventDefault();
-        let inputdata = [...data, ...pokerToInt(input)];
+        let inputdata = [...data, ...pokerToInt(input, id)];
         setdata(inputdata);
-        setdataLog([inputdata]);
-        dataLogForClosure.current = [inputdata];
+        setdataLog([inputdata.map(ele => ele.data)]);
+        dataLogForClosure.current = [inputdata.map(ele => ele.data)];
         setinput('');
     }
 
@@ -36,19 +36,22 @@ function MainPg() {
         let sortingData = data.slice(0, data.length);
         for(let i = 1, j = 0; i < sortingData.length; i++)
         {
-            let tmp = sortingData[i];
-            tmplog.push({"from": i, "type": "beg"});
-            for(j = i - 1; j >= 0 && (sortingData[j] < tmp); j--)
+            let tmp = {...sortingData[i]};
+            tmplog.push({"from": i, "begid":tmp.id, "type": "beg"});
+            for(j = i - 1; j >= 0 && (sortingData[j].data < tmp.data); j--)
             {
                 sortingData[j + 1] = sortingData[j];
-                tmplog.push({"from": j, "to": j + 1, "type": "sw"});
+                tmplog.push({
+                    "from": j,
+                    "to": j + 1,
+                    "type": "sw"
+                });
             }
             sortingData[j + 1] = tmp;
-            tmplog.push({"num": tmp, "to":j + 1, "type": "ins"});
+            tmplog.push({"num": tmp.data, "to":j + 1, "toid": sortingData[j+1].id, "type": "ins"});
         }
         setlog(tmplog);
     }
-
 
     const display = () =>{
         let sortingData = data.slice(0, data.length);
@@ -63,10 +66,10 @@ function MainPg() {
                     // console.log('debug',dataLog, sortingData, [...dataLog, sortingData], dataLogForClosure.current)
                     setdata(sortingData);
                 }else if(log[i].type === "beg"){
-                    setcurPick(sortingData[log[i].from]);
+                    setcurPick(log[i].begid);
                 }else{      //type == ins
                     setcurPick(null);
-                    dataLogForClosure.current = [...dataLogForClosure.current, sortingData];
+                    dataLogForClosure.current = [...dataLogForClosure.current, sortingData.map(ele => ele.data)];
                     setdataLog(dataLogForClosure.current);
                 }
                 i++;
@@ -95,7 +98,7 @@ function MainPg() {
                             >
                             {data.map((data) => (
                                     <InnerBar
-                                    key = {data}
+                                    key = {data.id}
                                     data = {data}
                                     curPick = {curPick}>
                                         {data}
@@ -156,7 +159,9 @@ function MainPg() {
                         <MDBCard className = 'overflow-auto log-container'>
                             <MDBCard className = 'font-weight-bold p-3 m-3 bg-dark-blue-gradient text-white px-3 h3'>log</MDBCard>
                             {
-                                dataLog.map((data, i) =>
+                                dataLog
+                                .map(data => data)
+                                .map((data, i) =>
                                     <MDBCard key = {i} className = 'border border-light px-3 py-2 mx-3 my-1 font-weight-bold text-light-blue d-flex'>
                                         <span className = 'd-flex aligin-self-start mr-auto'>{`step ${i + 1}:`}</span>
                                         <span className = 'd-flex aligin-self-end text-muted ml-auto text-break'>

@@ -1,4 +1,4 @@
-const pokerToInt = (stringInput) =>{
+const pokerToInt = (stringInput, id) =>{
     let ret = stringInput
     .trim()
     .split(",")
@@ -43,7 +43,10 @@ const pokerToInt = (stringInput) =>{
                 break;
         }
 
-        return base;
+        return {
+            "data": base,
+            "id":++id.current
+        };
     });
     return ret;
 }

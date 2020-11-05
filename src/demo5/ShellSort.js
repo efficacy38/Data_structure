@@ -199,7 +199,7 @@ function CountingSort() {
               j -= gap;
           }
           rowscpy[j] = {...tmp};
-          console.log([...rowscpy].map((ele, idx) => ele.EBITDA.props.children), i, j, gap)
+          // console.log([...rowscpy].map((ele, idx) => ele.EBITDA.props.children), i, j, gap)
         }
         gap = Math.floor(gap / 2);
       }

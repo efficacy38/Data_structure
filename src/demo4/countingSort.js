@@ -106,16 +106,16 @@ function CountingSort() {
                 });
 
                 let buf = {
-                    "index": idx,
-                    "RI": splitArr[0],
-                    "RG": splitArr[1],
-                    "RU": splitArr[2],
-                    "datetime": splitArr[3],
-                    "HM": splitArr[4],
-                    "status": splitArr[5],
-                    "RL": splitArr[6],
-                    "HR": splitArr[7],
-                    "HX": splitArr[8],
+                  "index": idx,
+                  "RI": splitArr[0],
+                  "RG": splitArr[1],
+                  "RU": splitArr[2],
+                  "datetime": splitArr[3],
+                  "HM": splitArr[4],
+                  "status": splitArr[5],
+                  "RL": splitArr[6],
+                  "HR": splitArr[7],
+                  "HX": splitArr[8],
                 };
 
                 if(buf.status >= 100 && buf.status < 200)
